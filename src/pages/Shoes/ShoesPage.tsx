@@ -1,15 +1,13 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useShoes } from "../../hooks/useShoes";
 import type { ClimbingShoe } from "../../types";
-import { Link } from "react-router-dom";
 
 export default function ShoesPage() {
   const [search, setSearch] = useState("");
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined);
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined);
 
-  // Los filtros se pasan como valores primitivos, no como objeto,
-  // para evitar re-renders innecesarios. El hook los recibe correctamente
   const { shoes, loading, error } = useShoes({
     search: search || undefined,
     minPrice,
@@ -73,6 +71,16 @@ export default function ShoesPage() {
         {shoes.map((shoe: ClimbingShoe) => (
           <Link to={`/shoes/${shoe.id}`} key={shoe.id} className="block">
             <div className="bg-white rounded-xl shadow p-5 hover:shadow-md transition cursor-pointer h-full">
+              {/* Imagen */}
+              {shoe.imagenUrl && (
+                <img
+                  src={`/${shoe.imagenUrl}`}
+                  alt={`${shoe.marca} ${shoe.modelo}`}
+                  className="w-full h-40 object-contain mb-4 rounded-lg bg-gray-50 p-2"
+                  onError={(e) => (e.currentTarget.style.display = "none")}
+                />
+              )}
+
               {/* Cabecera: nombre + badge destacado */}
               <div className="flex justify-between items-start mb-2">
                 <div>
