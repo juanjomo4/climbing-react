@@ -1,0 +1,96 @@
+{
+  "tiposEscalada": [
+    {
+      "tipo": "Boulder",
+      "descripcion": "Escalada en bloques de baja altura sin cuerda",
+      "altura": "3-5 metros",
+      "proteccion": "Colchonetas (crashpads)",
+      "ventajas": "Fácil para empezar, social, sin equipo complejo",
+      "ideal": "Principiantes que quieren probar"
+    },
+    {
+      "tipo": "Top-rope",
+      "descripcion": "Escalada con cuerda desde arriba",
+      "altura": "10-15 metros",
+      "proteccion": "Cuerda asegurada desde arriba",
+      "ventajas": "Muy seguro, permite escalar alto",
+      "ideal": "Quienes buscan altura con seguridad"
+    },
+    {
+      "tipo": "Lead (Primero)",
+      "descripcion": "Escalada asegurando según subes",
+      "altura": "10-20 metros",
+      "proteccion": "Mosquetones en la pared",
+      "ventajas": "Mayor desafío técnico y mental",
+      "ideal": "Escaladores con experiencia"
+    }
+  ],
+  "equipoNecesario": [
+    {
+      "nombre": "Pies de gato",
+      "descripcion": "Calzado especializado con suela de goma adherente",
+      "esencial": true,
+      "imagen": "assets/images/getting-started/pies-de-gato.png"
+    },
+    {
+      "nombre": "Ropa cómoda",
+      "descripcion": "Ropa deportiva que permita movilidad completa",
+      "esencial": true,
+      "imagen": "assets/images/getting-started/ropa-escalada.png"
+    },
+    {
+      "nombre": "Magnesio (Chalk)",
+      "descripcion": "Para mejorar el agarre y absorber la humedad",
+      "esencial": false,
+      "imagen": "assets/images/getting-started/magnesio.png"
+    },
+    {
+      "nombre": "Bolsa de magnesio",
+      "descripcion": "Para llevar el magnesio durante la escalada",
+      "esencial": false,
+      "imagen": "assets/images/getting-started/bolsa-magnesio.png"
+    }
+  ],
+  "beneficios": {
+    "fisicos": [
+      "Fortalece todo el cuerpo de forma equilibrada",
+      "Mejora la flexibilidad y movilidad articular",
+      "Desarrolla la resistencia cardiovascular",
+      "Aumenta la coordinación y el equilibrio"
+    ],
+    "mentales": [
+      "Desarrolla la resolución de problemas",
+      "Mejora la concentración y el enfoque",
+      "Reduce el estrés y la ansiedad",
+      "Aumenta la confianza en uno mismo"
+    ],
+    "sociales": [
+      "Comunidad acogedora y de apoyo",
+      "Ambiente no competitivo",
+      "Oportunidad de conocer gente nueva",
+      "Actividad compartible con amigos"
+    ]
+  },
+  "consejosPrimeraSesion": [
+    {
+      "titulo": "Calentamiento",
+      "icono": "🔥",
+      "texto": "Dedica 10-15 minutos a calentar. Moviliza articulaciones, especialmente muñecas, hombros y tobillos. Realiza estiramientos dinámicos y empieza con vías o bloques muy fáciles para activar los músculos gradualmente."
+    },
+    {
+      "titulo": "Técnica básica",
+      "icono": "🎯",
+      "texto": "Usa más las piernas que los brazos. Mantén los brazos extendidos cuando sea posible para ahorrar energía. Coloca bien los pies antes de mover las manos. Mira hacia arriba para planificar tu ruta."
+    },
+    {
+      "titulo": "Seguridad",
+      "icono": "🛡️",
+      "texto": "En boulder, aprende a caer correctamente sobre las colchonetas. En vías con cuerda, verifica siempre tu arnés y el nudo. Escucha las instrucciones del personal del rocódromo y no dudes en pedir ayuda."
+    },
+    {
+      "titulo": "Descanso",
+      "icono": "💪",
+      "texto": "No escales hasta la extenuación en tu primera sesión. Descansa entre intentos. Hidrátate constantemente. Escucha a tu cuerpo y detente si sientes dolor agudo. La piel de las manos necesitará tiempo para adaptarse."
+    }
+  ]
+}
