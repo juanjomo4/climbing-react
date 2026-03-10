@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { getShoeById } from "../../services/shoeService";
 import type { ClimbingShoe } from "../../types";
 
-export default function ShoeDetailPage() {
+export default function ShoesDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
