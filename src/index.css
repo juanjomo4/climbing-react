@@ -3,3 +3,7 @@
 * {
   font-family: 'Source Sans 3', sans-serif;
 }
+/* Evita que el mapa se superponga a la navbar */
+.leaflet-container {
+  z-index: 1;
+}
