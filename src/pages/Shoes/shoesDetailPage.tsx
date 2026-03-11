@@ -3,6 +3,25 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { getShoeById } from "../../services/shoeService";
 import type { ClimbingShoe } from "../../types";
 
+const RIGIDEZ_CONFIG: Record<
+  string,
+  { label: string; color: string; bg: string; bar: number }
+> = {
+  blanda: {
+    label: "Blanda",
+    color: "text-green-600",
+    bg: "bg-green-500",
+    bar: 33,
+  },
+  media: { label: "Media", color: "text-blue-600", bg: "bg-blue-500", bar: 66 },
+  rígida: {
+    label: "Rígida",
+    color: "text-red-600",
+    bg: "bg-red-500",
+    bar: 100,
+  },
+};
+
 export default function ShoesDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -13,7 +32,6 @@ export default function ShoesDetailPage() {
 
   useEffect(() => {
     if (!id) return;
-
     const fetchShoe = async () => {
       try {
         setLoading(true);
@@ -26,140 +44,169 @@ export default function ShoesDetailPage() {
         setLoading(false);
       }
     };
-
     fetchShoe();
   }, [id]);
 
   if (loading)
     return (
       <div className="flex justify-center items-center h-64">
-        <p className="text-gray-500 text-lg">Cargando...</p>
+        <p className="text-gray-400 animate-pulse">Cargando...</p>
       </div>
     );
 
   if (error || !shoe)
     return (
       <div className="flex flex-col justify-center items-center h-64 gap-4">
-        <p className="text-red-500 text-lg">
-          {error ?? "Producto no encontrado"}
-        </p>
+        <p className="text-red-500">{error ?? "Producto no encontrado"}</p>
         <button
           onClick={() => navigate("/shoes")}
-          className="text-blue-500 hover:underline"
+          className="text-sm text-gray-500 hover:text-gray-900 underline"
         >
           ← Volver al catálogo
         </button>
       </div>
     );
 
+  const rigidez = RIGIDEZ_CONFIG[shoe.rigidez] ?? {
+    label: shoe.rigidez,
+    color: "text-gray-600",
+    bg: "bg-gray-500",
+    bar: 50,
+  };
+
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gray-50">
       {/* Breadcrumb */}
-      <nav className="text-sm text-gray-400 mb-6">
-        <Link to="/" className="hover:text-blue-500">
-          Inicio
-        </Link>
-        <span className="mx-2">›</span>
-        <Link to="/shoes" className="hover:text-blue-500">
-          Pies de gato
-        </Link>
-        <span className="mx-2">›</span>
-        <span className="text-gray-600">{shoe.modelo}</span>
-      </nav>
-
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-        <div className="md:flex">
-          {/* Imagen */}
-          <div className="md:w-2/5 bg-gray-100 flex items-center justify-center p-8 min-h-64">
-            {shoe.imagenUrl ? (
-              <img
-                src={`/${shoe.imagenUrl}`}
-                alt={`${shoe.marca} ${shoe.modelo}`}
-                className="max-h-72 object-contain"
-                onError={(e) => (e.currentTarget.style.display = "none")}
-              />
-            ) : (
-              <span className="text-8xl">👟</span>
-            )}
-          </div>
-
-          {/* Info principal */}
-          <div className="md:w-3/5 p-8">
-            <div className="flex justify-between items-start mb-2">
-              <p className="text-sm text-gray-400 uppercase tracking-widest">
-                {shoe.marca}
-              </p>
-              {shoe.destacado && (
-                <span className="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full font-medium">
-                  ⭐ Destacado
-                </span>
-              )}
-            </div>
-
-            <h1 className="text-3xl font-extrabold text-gray-800 mb-4">
-              {shoe.modelo}
-            </h1>
-
-            <p className="text-4xl font-bold text-blue-600 mb-6">
-              {shoe.precio.toFixed(2)} €
-            </p>
-
-            {shoe.descripcion && (
-              <p className="text-gray-600 leading-relaxed mb-6">
-                {shoe.descripcion}
-              </p>
-            )}
-
-            {/* Especificaciones */}
-            <div className="border-t pt-6">
-              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-                Especificaciones
-              </h2>
-              <dl className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <dt className="text-xs text-gray-400 mb-1">Tipo de cierre</dt>
-                  <dd className="font-medium text-gray-800 capitalize">
-                    🔒 {shoe.tipoCierre}
-                  </dd>
-                </div>
-
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <dt className="text-xs text-gray-400 mb-1">Rigidez</dt>
-                  <dd
-                    className={`font-medium capitalize ${
-                      shoe.rigidez === "blanda"
-                        ? "text-green-600"
-                        : shoe.rigidez === "media"
-                          ? "text-blue-600"
-                          : "text-red-600"
-                    }`}
-                  >
-                    {shoe.rigidez}
-                  </dd>
-                </div>
-
-                <div className="bg-gray-50 rounded-lg p-3 col-span-2">
-                  <dt className="text-xs text-gray-400 mb-1">
-                    Tallas disponibles
-                  </dt>
-                  <dd className="font-medium text-gray-800">
-                    📏 {shoe.tallaMinima} — {shoe.tallaMaxima} EU
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </div>
-        </div>
+      <div className="max-w-7xl mx-auto px-6 pt-8 pb-0">
+        <nav className="text-xs text-gray-400 uppercase tracking-widest flex items-center gap-2">
+          <Link to="/" className="hover:text-gray-700 transition">
+            Inicio
+          </Link>
+          <span>›</span>
+          <Link to="/shoes" className="hover:text-gray-700 transition">
+            Pies de gato
+          </Link>
+          <span>›</span>
+          <span className="text-gray-700 font-semibold">{shoe.modelo}</span>
+        </nav>
       </div>
 
-      {/* Botón volver */}
-      <div className="mt-6">
-        <button
-          onClick={() => navigate(-1)}
-          className="text-blue-500 hover:underline text-sm"
-        >
-          ← Volver
-        </button>
+      {/* Layout principal: info izquierda + imagen derecha */}
+      <div className="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-2 gap-12 items-center min-h-[70vh]">
+        {/* Panel izquierdo: toda la info */}
+        <div className="flex flex-col justify-center">
+          {/* Marca */}
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 font-semibold mb-3">
+            {shoe.marca}
+          </p>
+
+          {/* Nombre */}
+          <h1 className="text-5xl font-black text-gray-900 leading-none mb-2 uppercase tracking-tight">
+            {shoe.modelo}
+          </h1>
+
+          {/* Destacado */}
+          {shoe.destacado && (
+            <span className="inline-block w-fit text-xs font-bold uppercase tracking-widest bg-orange-100 text-orange-600 px-3 py-1 rounded-full mb-4">
+              ⭐ Destacado
+            </span>
+          )}
+
+          {/* Precio */}
+          <p className="text-6xl font-black text-gray-900 mb-6 leading-none">
+            {shoe.precio.toFixed(2)}
+            <span className="text-2xl font-normal text-gray-400 ml-1">€</span>
+          </p>
+
+          {/* Descripción */}
+          {shoe.descripcion && (
+            <p className="text-gray-500 text-sm leading-relaxed mb-8 max-w-sm border-l-2 border-gray-200 pl-4">
+              {shoe.descripcion}
+            </p>
+          )}
+
+          {/* Especificaciones */}
+          <div className="space-y-3 mb-8">
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.25em] mb-4">
+              Especificaciones
+            </p>
+
+            {/* Cierre */}
+            <div className="flex items-center justify-between py-3 border-b border-gray-100">
+              <span className="text-xs text-gray-400 uppercase tracking-wider">
+                Tipo de cierre
+              </span>
+              <span className="text-sm font-semibold text-gray-800 capitalize">
+                {shoe.tipoCierre}
+              </span>
+            </div>
+
+            {/* Tallas */}
+            <div className="flex items-center justify-between py-3 border-b border-gray-100">
+              <span className="text-xs text-gray-400 uppercase tracking-wider">
+                Tallas EU
+              </span>
+              <span className="text-sm font-semibold text-gray-800">
+                {shoe.tallaMinima} — {shoe.tallaMaxima}
+              </span>
+            </div>
+
+            {/* Rigidez con barra */}
+            <div className="py-3">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs text-gray-400 uppercase tracking-wider">
+                  Rigidez
+                </span>
+                <span
+                  className={`text-xs font-black uppercase tracking-widest ${rigidez.color}`}
+                >
+                  {rigidez.label}
+                </span>
+              </div>
+              <div className="h-1 bg-gray-100 rounded-full overflow-hidden">
+                <div
+                  className={`h-full rounded-full transition-all duration-1000 ${rigidez.bg}`}
+                  style={{ width: `${rigidez.bar}%` }}
+                />
+              </div>
+              <div className="flex justify-between mt-1">
+                <span className="text-[9px] text-gray-300 uppercase tracking-wider">
+                  Blanda
+                </span>
+                <span className="text-[9px] text-gray-300 uppercase tracking-wider">
+                  Rígida
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Botón volver */}
+          <button
+            onClick={() => navigate(-1)}
+            className="w-fit text-xs text-gray-400 hover:text-gray-700 uppercase tracking-widest transition flex items-center gap-2"
+          >
+            ← Volver
+          </button>
+        </div>
+
+        {/* Panel derecho: imagen grande */}
+        <div className="relative flex items-center justify-center">
+          {/* Fondo decorativo */}
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl" />
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-48 h-6 bg-black/10 blur-2xl rounded-full" />
+
+          {shoe.imagenUrl ? (
+            <img
+              src={`/${shoe.imagenUrl}`}
+              alt={`${shoe.marca} ${shoe.modelo}`}
+              className="relative object-contain rounded-2xl"
+              style={{ filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.15))" }}
+              onError={(e) => (e.currentTarget.style.display = "none")}
+            />
+          ) : (
+            <span className="text-9xl opacity-10">👟</span>
+          )}
+        </div>
       </div>
     </div>
   );
