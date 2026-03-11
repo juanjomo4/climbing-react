@@ -43,13 +43,13 @@ export default function ShoesPage() {
       </div>
 
       {/* Filtros */}
-      <div className="flex flex-wrap gap-3 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8  p-4 rounded-xl">
         <input
           type="text"
           placeholder="Buscar marca o modelo..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 min-w-48 border-0 border-b-2 border-gray-200 focus:border-gray-900 bg-transparent px-0 py-2 text-sm focus:outline-none transition-colors placeholder-gray-300"
+          className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           type="number"
@@ -58,7 +58,7 @@ export default function ShoesPage() {
           onChange={(e) =>
             setMinPrice(e.target.value ? Number(e.target.value) : undefined)
           }
-          className="w-32 border-0 border-b-2 border-gray-200 focus:border-gray-900 bg-transparent px-0 py-2 text-sm focus:outline-none transition-colors placeholder-gray-300"
+          className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           type="number"
@@ -67,7 +67,7 @@ export default function ShoesPage() {
           onChange={(e) =>
             setMaxPrice(e.target.value ? Number(e.target.value) : undefined)
           }
-          className="w-32 border-0 border-b-2 border-gray-200 focus:border-gray-900 bg-transparent px-0 py-2 text-sm focus:outline-none transition-colors placeholder-gray-300"
+          className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -80,7 +80,7 @@ export default function ShoesPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {shoes.map((shoe: ClimbingShoe) => (
           <Link to={`/shoes/${shoe.id}`} key={shoe.id} className="group block">
-            <div className="relative bg-[#1d1f20]/95 rounded-2xl overflow-hidden">
+            <div className="bg-[#1d1f20]/95 rounded-2xl overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-300">
               {/* Badge TOP */}
               {shoe.destacado && (
                 <div className="absolute top-3 left-3 z-10">

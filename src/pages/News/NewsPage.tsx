@@ -43,7 +43,7 @@ export default function NewsPage() {
       </h1>
 
       {/* Filtros */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 bg-white p-4 rounded-xl shadow">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 p-4 rounded-xl">
         <input
           type="text"
           placeholder="Buscar noticias..."
